@@ -11,17 +11,28 @@ const nav = document.getElementById("nav");
 const toggle = document.getElementById("navToggle");
 const menu = document.getElementById("navMenu");
 
+function setMenu(open) {
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.setAttribute("aria-label", open ? "Chiudi il menu" : "Apri il menu");
+  menu.classList.toggle("is-open", open);
+  document.body.classList.toggle("nav-open", open);   // blocca lo scroll dietro il menu a tutto schermo
+}
+
 toggle.addEventListener("click", () => {
-  const open = toggle.getAttribute("aria-expanded") === "true";
-  toggle.setAttribute("aria-expanded", String(!open));
-  toggle.setAttribute("aria-label", open ? "Apri il menu" : "Chiudi il menu");
-  menu.classList.toggle("is-open", !open);
+  setMenu(toggle.getAttribute("aria-expanded") !== "true");
 });
 menu.addEventListener("click", (e) => {
-  if (e.target.tagName === "A") {
-    toggle.setAttribute("aria-expanded", "false");
-    menu.classList.remove("is-open");
+  if (e.target.tagName === "A") setMenu(false);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+    setMenu(false);
+    toggle.focus();
   }
+});
+/* Tornando sopra i 860px il menu resta visibile in linea: si chiude lo stato a tutto schermo. */
+window.matchMedia("(min-width: 861px)").addEventListener("change", (e) => {
+  if (e.matches) setMenu(false);
 });
 
 /* Bordo della barra quando si scorre (sentinella + IntersectionObserver, niente listener di scroll) */
