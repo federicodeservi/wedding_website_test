@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Conferma la presenza, Monica &amp; Federico</title>
+  <meta name="description" content="Conferma la tua presenza al matrimonio di Monica e Federico, 28 maggio 2027 a Inverigo.">
+  <meta property="og:title" content="Conferma la presenza, Monica & Federico">
+  <meta property="og:description" content="Fateci sapere se ci sarete il 28 maggio 2027.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#274D3D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Vai al contenuto</a>
+
+<div class="nav-sentinel" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <a class="nav__brand" href="index.html" aria-label="Torna all'inizio">M <span>&amp;</span> F</a>
+  <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Apri il menu">
+    <span></span><span></span>
+  </button>
+  <nav class="nav__menu" id="navMenu" aria-label="Sezioni del sito">
+    <a href="index.html#storia">La storia</a>
+    <a href="index.html#programma">Programma</a>
+    <a href="index.html#luoghi">Luoghi</a>
+    <a href="index.html#galleria">Galleria</a>
+    <a href="index.html#regali">Regali</a>
+    <a class="btn btn--small" href="conferma.html" aria-current="page">Conferma presenza</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- RSVP -->
+  <section class="section rsvp rsvp--page" id="rsvp">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Monica &amp; Federico, 28 maggio 2027</p>
+      <h1 class="h2 reveal">Conferma la presenza</h1>
+
+      <div class="rsvp__paused reveal" id="rsvpPaused">
+        <p class="lead">Il modulo per confermare sarà disponibile a breve. Vi avviseremo appena sarà attivo, insieme alla data entro cui rispondere.</p>
+      </div>
+
+      <form class="form" id="rsvpForm" hidden novalidate>
+        <p class="lead" data-rsvp-intro>Una risposta per famiglia o coppia. <span data-rsvp-deadline-wrap hidden>Vi chiediamo di rispondere entro il <strong data-rsvp-deadline></strong>.</span></p>
+
+        <div class="field">
+          <label for="nome">Nome e cognome</label>
+          <input id="nome" name="nome" type="text" autocomplete="name" required>
+          <p class="field__error" data-error-for="nome">Inserisci il tuo nome.</p>
+        </div>
+
+        <div class="field field--half">
+          <label for="persone">Numero di persone</label>
+          <input id="persone" name="persone" type="number" min="1" max="10" value="1" required>
+        </div>
+
+        <div class="field">
+          <label for="accompagnatori">Nomi degli accompagnatori</label>
+          <input id="accompagnatori" name="accompagnatori" type="text">
+          <p class="field__hint">Facoltativo. Gli adulti che vengono con voi.</p>
+        </div>
+
+        <div class="field field--half">
+          <label for="bambini">Bambini</label>
+          <input id="bambini" name="bambini" type="number" min="0" max="10" value="0">
+        </div>
+
+        <div class="field" id="etaBambiniField" hidden>
+          <label for="eta_bambini">Età dei bambini</label>
+          <input id="eta_bambini" name="eta_bambini" type="text" placeholder="">
+          <p class="field__hint">Es. 3 e 7 anni. Ci serve per il menù e i seggioloni.</p>
+        </div>
+
+        <div class="field">
+          <label for="intolleranze">Intolleranze o allergie</label>
+          <input id="intolleranze" name="intolleranze" type="text">
+        </div>
+
+        <div class="field">
+          <label for="messaggio">Un messaggio per noi</label>
+          <textarea id="messaggio" name="messaggio" rows="4"></textarea>
+        </div>
+
+        <div class="field field--hp" aria-hidden="true">
+          <label for="website">Sito web</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="btn" type="submit" id="rsvpSubmit">Invia la conferma</button>
+        <p class="form__status" id="rsvpStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__names">Monica <em>e</em> Federico</p>
+    <p>28 maggio 2027, Inverigo</p>
+    <p class="footer__line">Una storia nata in biblioteca, che continua in una cascina nel verde.</p>
+    <!-- TODO: contatti dei testimoni o degli sposi -->
+    <p class="footer__contact">Per qualsiasi domanda scriveteci: <a class="link" href="mailto:info@example.com">info@example.com</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
