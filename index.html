@@ -39,6 +39,11 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
+    <figure class="hero__art">
+      <img class="hero__couple" src="assets/img/disegni/coppia.webp" alt="Disegno di Monica e Federico abbracciati, con due cuori" width="694" height="558" fetchpriority="high">
+      <img class="hero__flowers hero__flowers--left" src="assets/img/disegni/fiori-prato.webp" alt="" width="327" height="211">
+      <img class="hero__flowers hero__flowers--right" src="assets/img/disegni/fiori-mazzo.webp" alt="" width="180" height="181">
+    </figure>
     <div class="hero__copy">
       <p class="eyebrow">Ci sposiamo</p>
       <h1 class="hero__title">Monica <em>e</em> Federico</h1>
@@ -49,10 +54,6 @@
         <a class="btn btn--ghost" href="#programma">Il programma</a>
       </div>
     </div>
-    <figure class="hero__media">
-      <!-- TODO: foto di coppia verticale, 1200x1600 -->
-      <img class="hero__img" src="https://picsum.photos/seed/monica-federico-hero/1200/1600" alt="Monica e Federico" width="1200" height="1600" fetchpriority="high">
-    </figure>
   </section>
 
   <div class="countdown" id="countdown" aria-live="polite">
@@ -64,10 +65,13 @@
   <section class="section story" id="storia">
     <div class="wrap">
       <h2 class="h2 reveal">La nostra storia</h2>
-      <blockquote class="story__quote reveal">
-        <!-- TODO: frase o citazione degli sposi -->
-        <p>Ci siamo conosciuti tra gli scaffali di una biblioteca. Da lì è iniziata una storia che raccontiamo qui, capitolo per capitolo.</p>
-      </blockquote>
+      <div class="story__intro">
+        <blockquote class="story__quote reveal">
+          <!-- TODO: frase o citazione degli sposi -->
+          <p>Ci siamo conosciuti tra gli scaffali di una biblioteca. Da lì è iniziata una storia che raccontiamo qui, capitolo per capitolo.</p>
+        </blockquote>
+        <img class="story__books reveal" src="assets/img/disegni/libri.webp" alt="" width="507" height="310" loading="lazy">
+      </div>
       <ol class="milestones reveal">
         <!-- TODO: sostituire le tappe segnaposto -->
         <li class="milestone">
@@ -93,7 +97,8 @@
   </section>
 
   <!-- PROGRAMMA -->
-  <section class="section section--tint" id="programma">
+  <section class="section section--tint has-deco" id="programma">
+    <img class="deco-ramo deco-ramo--left" src="assets/img/disegni/ramo-lilla.webp" alt="" width="165" height="615" loading="lazy">
     <div class="wrap wrap--narrow">
       <h2 class="h2 reveal">Il programma della giornata</h2>
       <p class="lead reveal">Una giornata tra i libri e il verde della cascina. Orari indicativi, li aggiorneremo appena tutto sarà confermato.</p>
@@ -177,7 +182,8 @@
   </section>
 
   <!-- REGALI -->
-  <section class="section" id="regali">
+  <section class="section has-deco" id="regali">
+    <img class="deco-ramo deco-ramo--right" src="assets/img/disegni/ramo-lilla.webp" alt="" width="165" height="615" loading="lazy">
     <div class="wrap wrap--narrow">
       <div class="gifts reveal">
         <p class="eyebrow">Un pensiero per noi</p>
@@ -214,6 +220,13 @@
     <p class="footer__line">Una storia nata in biblioteca, che continua in una cascina nel verde.</p>
     <!-- TODO: contatti dei testimoni o degli sposi -->
     <p class="footer__contact">Per qualsiasi domanda scriveteci: <a class="link" href="mailto:info@example.com">info@example.com</a></p>
+  </div>
+  <div class="wrap footer__ground" aria-hidden="true">
+    <img class="footer__flowers" src="assets/img/disegni/fiori-prato.webp" alt="" width="327" height="211" loading="lazy">
+    <span class="footer__books">
+      <img class="footer__heart" src="assets/img/disegni/cuore.webp" alt="" width="77" height="102" loading="lazy">
+      <img src="assets/img/disegni/libri-occhiali.webp" alt="" width="459" height="289" loading="lazy">
+    </span>
   </div>
 </footer>
 

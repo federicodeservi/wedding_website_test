@@ -64,7 +64,16 @@ Dopo aver distribuito l'app web, aprire l'URL generato nel browser: deve mostrar
 
 Le foto della galleria sono in `assets/img/` (file rinominati per soggetto: `mare.jpg`, `parigi.jpg`, ecc.) e sono collegate in `index.html` nella sezione `#galleria`. La galleria e' una sola riga a tutta larghezza che scorre in orizzontale da sola (3 foto intere su desktop, 1 su mobile); si ferma al passaggio del mouse o al tocco e si puo' trascinare o scorrere a mano. La logica e' in `js/main.js` (sezione "Galleria"), lo stile in `css/styles.css` (`.carousel`). Per aggiungere o togliere una foto basta aggiungere o rimuovere un `<figure class="carousel__item">`: il ciclo infinito si adatta da solo.
 
-La foto dell'hero usa ancora un segnaposto di picsum.photos: per sostituirla, mettere il file in `assets/img/` e aggiornare il `src` di `.hero__img` in `index.html`.
+## Disegni
+
+I disegni sono quelli della partecipazione e stanno in `assets/img/disegni/`, in WebP con lo sfondo trasparente:
+
+- `coppia.webp`, con i due cuori, in cima all'hero; `fiori-prato.webp` e `fiori-mazzo.webp` ai suoi piedi
+- `libri.webp` accanto alla citazione della storia
+- `ramo-lilla.webp` sul bordo dello schermo accanto a programma e regali, solo da 980px di larghezza in su (sotto finirebbe sul testo)
+- `fiori-prato.webp`, `cuore.webp` e `libri-occhiali.webp` in fondo al footer, in tutte e due le pagine
+
+Sono ritagliati dai fogli originali di Procreate. Il bianco attorno ai disegni e' trasparente, quello dentro (facce, mani, pagine, petali) e' rimasto bianco.
 
 ## Cose ancora da definire (TBD)
 
