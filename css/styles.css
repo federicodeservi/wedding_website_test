@@ -242,6 +242,8 @@ button { font: inherit; }
 }
 .countdown__n { font-size: 2.5rem; font-weight: 500; color: var(--accent); line-height: 1; }
 .countdown__label { font-size: 1.35rem; font-style: italic; color: var(--ink-2); }
+.countdown__heart { align-self: center; height: 1.35rem; width: auto; transform: rotate(-12deg); }
+.countdown__heart--r { transform: rotate(10deg); }
 
 /* Storia: citazione grande con la pila di libri della partecipazione + tre tappe in riga */
 .story__intro {
@@ -285,13 +287,29 @@ button { font: inherit; }
   .milestones { grid-template-columns: 1fr; gap: 2.25rem; }
 }
 
-/* Rami lilla della partecipazione: escono dal bordo dello schermo accanto alle sezioni strette.
-   Solo dove c'e' spazio ai lati, cosi' non finiscono mai sopra il testo. */
+/* Rami lilla della partecipazione: escono dal bordo dello schermo.
+   Su schermi stretti stanno a cavallo tra due sezioni, nello spazio vuoto dei padding
+   (come sulla partecipazione, dove il ramo attraversa la piega); su schermi larghi
+   scendono accanto alle sezioni strette. In nessun caso finiscono sopra il testo. */
 .has-deco { position: relative; }
-.deco-ramo { display: none; position: absolute; height: clamp(240px, 24vw, 340px); width: auto; pointer-events: none; }
-.deco-ramo--left { left: 0; top: 14%; }
-.deco-ramo--right { right: 0; top: 10%; transform: rotate(180deg); }
-@media (min-width: 980px) { .deco-ramo { display: block; } }
+.deco-ramo {
+  position: absolute; z-index: 1; pointer-events: none;
+  height: 140px; width: auto;
+}
+.deco-ramo--left { left: 0; top: -70px; }
+.deco-ramo--right { right: 0; top: -70px; transform: rotate(180deg); }
+@media (min-width: 980px) {
+  .deco-ramo { height: clamp(240px, 24vw, 340px); }
+  .deco-ramo--left { top: 14%; }
+  .deco-ramo--right { top: 10%; }
+}
+
+/* Cuoricini e fiorellini sparsi, sempre dalla partecipazione */
+.doodle-heart {
+  display: inline-block; height: .42em; width: auto;
+  vertical-align: .4em; margin-left: .15em; transform: rotate(14deg);
+}
+.doodle-heart--l { margin: 0 .15em 0 0; transform: rotate(-12deg); }
 
 /* Programma: timeline verticale */
 .timeline { border-left: 1px solid var(--wedding-soft); margin-left: .5rem; }
@@ -307,6 +325,8 @@ button { font: inherit; }
 .timeline__time { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: var(--accent); line-height: 1.1; }
 .timeline__title { font-size: 1.7rem; margin-bottom: .3rem; }
 .timeline__item p { color: var(--ink-2); margin: 0; }
+/* La linea del programma finisce in un mazzetto di fiori, centrato sulla linea */
+.timeline__flowers { width: 64px; height: auto; margin: .5rem 0 0 calc(.5rem - 30px); }
 @media (max-width: 560px) {
   .timeline__item { grid-template-columns: 1fr; gap: .25rem; }
 }
@@ -325,6 +345,9 @@ button { font: inherit; }
 }
 .place__where { font-style: italic; margin-bottom: 1rem; }
 .place p:not(.place__name) { color: var(--ink-2); }
+.place__flowers { display: flex; align-items: flex-end; gap: .1rem; margin-top: 1.75rem; }
+.place__flowers img { height: 72px; width: auto; }
+.place__flowers img + img { height: 50px; transform: rotate(10deg); }
 .map { margin-top: 1.5rem; aspect-ratio: 16 / 10; background: var(--wedding-soft); }
 .map iframe { width: 100%; height: 100%; border: 0; display: block; filter: saturate(.75); }
 @media (max-width: 860px) {
@@ -381,6 +404,7 @@ button { font: inherit; }
   border: 1px solid var(--accent); opacity: .55;
 }
 .gifts .eyebrow { margin-bottom: 1rem; }
+.gifts__heart { height: 34px; width: auto; margin: 0 auto .9rem; transform: rotate(-8deg); }
 .gifts .lead { color: var(--ink-2); margin-inline: auto; margin-bottom: 2.5rem; }
 .iban {
   display: grid; gap: .9rem; justify-items: center;
@@ -430,6 +454,9 @@ button { font: inherit; }
 .footer { border-top: 1px solid var(--line); padding-block: 4rem; text-align: center; color: var(--ink-2); }
 .footer__names { font-family: var(--script); font-size: 2.75rem; line-height: 1.2; color: var(--ink); margin-bottom: .25rem; }
 .footer__names em { color: var(--accent); font-style: normal; }
+/* Due cuori ai lati dei nomi, come ai lati del monogramma sul retro della partecipazione */
+.footer__names .doodle-heart { height: .36em; vertical-align: .15em; margin-left: .35em; }
+.footer__names .doodle-heart--l { margin: 0 .35em 0 0; }
 .footer__date { font-weight: 700; font-size: 1rem; letter-spacing: .12em; color: var(--muted); }
 .footer__line { font-style: italic; margin-top: .75rem; }
 .footer__contact { margin-top: 1.5rem; font-size: 1.1rem; }

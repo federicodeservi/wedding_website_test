@@ -70,7 +70,9 @@ I disegni sono quelli della partecipazione e stanno in `assets/img/disegni/`, in
 
 - `coppia.webp`, con i due cuori, in cima all'hero; `fiori-prato.webp` e `fiori-mazzo.webp` ai suoi piedi
 - `libri.webp` accanto alla citazione della storia
-- `ramo-lilla.webp` sul bordo dello schermo accanto a programma e regali, solo da 980px di larghezza in su (sotto finirebbe sul testo)
+- `ramo-lilla.webp` sul bordo dello schermo all'inizio di programma e regali. Da 980px in su scende accanto alla colonna stretta, sotto sta a cavallo tra due sezioni, nello spazio vuoto, cosi' non copre mai il testo
+- `cuore.webp` anche ai lati del conto alla rovescia, sopra la lista nozze, accanto a "Ci sarete?" e al titolo della pagina di conferma, ai lati dei nomi nel footer
+- `fiori-mazzo.webp` in fondo alla linea del programma, due `margherita.webp` sotto la cerimonia in "I luoghi"
 - `fiori-prato.webp`, `cuore.webp` e `libri-occhiali.webp` in fondo al footer, in tutte e due le pagine
 
 Sono ritagliati dai fogli originali di Procreate. Il bianco attorno ai disegni e' trasparente, quello dentro (facce, mani, pagine, petali) e' rimasto bianco.
