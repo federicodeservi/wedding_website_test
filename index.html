@@ -14,8 +14,60 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    /* Busta della partecipazione all'apertura: solo entrando dalla home senza ancora, una volta per sessione */
+    (function () {
+      try { if (location.hash || sessionStorage.getItem("intro-vista")) return; } catch (e) {}
+      document.documentElement.classList.add("has-intro");
+    })();
+  </script>
 </head>
 <body>
+
+<!-- INTRO: la busta della partecipazione, si apre al tocco -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Partecipazione di Monica e Federico">
+  <div class="intro__stage">
+    <p class="intro__names"><img class="doodle-heart doodle-heart--l" src="assets/img/disegni/cuore.webp" alt="" width="77" height="102">Monica <em>e</em> Federico<img class="doodle-heart" src="assets/img/disegni/cuore.webp" alt="" width="77" height="102"></p>
+    <button class="intro__arch" id="introOpen" type="button" aria-label="Apri la partecipazione">
+      <span class="intro__window" aria-hidden="true">
+        <span class="intro__lining"></span>
+        <span class="intro__card">
+          <span class="intro__eyebrow">Ci sposiamo</span>
+          <span class="intro__mono"><img src="assets/img/disegni/cuore.webp" alt="" width="77" height="102">M F<img src="assets/img/disegni/cuore.webp" alt="" width="77" height="102"></span>
+          <span class="intro__card-date">28 · 05 · 2027</span>
+        </span>
+        <span class="intro__pocket"><img src="assets/img/disegni/cuore.webp" alt="" width="77" height="102"></span>
+        <span class="intro__door intro__door--l"></span>
+        <span class="intro__door intro__door--r"></span>
+        <span class="intro__invite">Aprite la partecipazione</span>
+        <svg class="intro__seal" viewBox="0 0 100 100">
+          <defs>
+            <radialGradient id="sealWax" cx="38%" cy="32%" r="75%">
+              <stop offset="0" stop-color="#4b7a63"/>
+              <stop offset=".55" stop-color="#2c5544"/>
+              <stop offset="1" stop-color="#1b382c"/>
+            </radialGradient>
+            <g id="sealFace">
+              <path fill="url(#sealWax)" d="M95.2 41.8Q95.2 50.0 93.5 57.6Q91.8 65.2 88.8 72.6Q85.7 80.0 78.9 84.1Q72.1 88.2 65.0 91.8Q58.0 95.5 50.1 95.1Q42.1 94.7 35.0 91.4Q28.0 88.2 21.4 83.9Q14.7 79.6 11.7 72.3Q8.7 65.0 6.5 57.5Q4.3 50.0 6.4 42.5Q8.6 34.9 12.3 28.3Q16.1 21.6 21.7 16.0Q27.2 10.5 34.5 6.9Q41.8 3.3 49.7 4.8Q57.7 6.3 65.0 8.8Q72.4 11.2 79.0 15.6Q85.7 20.1 90.4 26.8Q95.1 33.6 95.2 41.8Z"/>
+              <circle cx="50" cy="50" r="33" fill="none" stroke="#18322a" stroke-width="2.2" opacity=".55"/>
+              <circle cx="50.6" cy="50.8" r="33" fill="none" stroke="#6f9a83" stroke-width="1" opacity=".55"/>
+              <text x="50.7" y="60.7" text-anchor="middle" font-family="Alex Brush, cursive" font-size="30" fill="#8fb39f" opacity=".75">M F</text>
+              <text x="50" y="60" text-anchor="middle" font-family="Alex Brush, cursive" font-size="30" fill="#132a20">M F</text>
+            </g>
+            <clipPath id="sealLeft"><path d="M0 0H53L47 21L54 38L46 55L53 74L48 100H0Z"/></clipPath>
+            <clipPath id="sealRight"><path d="M53 0H100V100H48L53 74L46 55L54 38L47 21Z"/></clipPath>
+          </defs>
+          <g class="intro__seal-half intro__seal-half--l" clip-path="url(#sealLeft)"><use href="#sealFace"/></g>
+          <g class="intro__seal-half intro__seal-half--r" clip-path="url(#sealRight)"><use href="#sealFace"/></g>
+        </svg>
+        <span class="intro__tap">Tocca per aprire</span>
+      </span>
+    </button>
+    <p class="intro__date">Venerdì 28 maggio 2027</p>
+  </div>
+  <img class="intro__flowers intro__flowers--l" src="assets/img/disegni/fiori-prato.webp" alt="" width="327" height="211">
+  <img class="intro__flowers intro__flowers--r" src="assets/img/disegni/fiori-mazzo.webp" alt="" width="180" height="181">
+</div>
 
 <a class="skip" href="#main">Vai al contenuto</a>
 

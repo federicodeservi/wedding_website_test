@@ -64,6 +64,14 @@ Dopo aver distribuito l'app web, aprire l'URL generato nel browser: deve mostrar
 
 Le foto della galleria sono in `assets/img/` (file rinominati per soggetto: `mare.jpg`, `parigi.jpg`, ecc.) e sono collegate in `index.html` nella sezione `#galleria`. La galleria e' una sola riga a tutta larghezza che scorre in orizzontale da sola (3 foto intere su desktop, 1 su mobile); si ferma al passaggio del mouse o al tocco e si puo' trascinare o scorrere a mano. La logica e' in `js/main.js` (sezione "Galleria"), lo stile in `css/styles.css` (`.carousel`). Per aggiungere o togliere una foto basta aggiungere o rimuovere un `<figure class="carousel__item">`: il ciclo infinito si adatta da solo.
 
+## Animazione iniziale
+
+Aprendo la home compare la busta della partecipazione: nomi in corsivo, arco con le cornici, sigillo di ceralacca verde col monogramma "M F". Al tocco (o con Invio) il sigillo si spezza, le due ante si aprono sulla fodera verde, dalla tasca sale il biglietto con "M F" tra due cuori e la data, poi la busta svanisce e parte l'hero. Esc la salta.
+
+- Compare una volta per sessione (si rivede chiudendo la scheda e riaprendo il sito) e non compare se si arriva su un'ancora, ad esempio `index.html#programma` dalla pagina di conferma.
+- Con "riduci movimento" attivo nel sistema, al tocco la busta svanisce e basta.
+- Markup in cima a `index.html` (`#intro`), stile in `css/styles.css` (sezione "Intro"), logica in `js/main.js` (sezione "Intro"). Lo script inline nell'head decide se mostrarla.
+
 ## Disegni
 
 I disegni sono quelli della partecipazione e stanno in `assets/img/disegni/`, in WebP con lo sfondo trasparente:

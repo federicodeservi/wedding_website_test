@@ -6,6 +6,39 @@ const RSVP_ENABLED = true;               // interruttore generale
 const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOvQfZpT7rVe7kNnAsOIW-kkHmzF2tc8hV1a3neB90lyq1hm7X_tJUjuC7za31M_je/exec";                // URL della web app Apps Script (vedi README). Finche' e' vuoto il sito mostra "in arrivo".
 const RSVP_DEADLINE = "";                // es. "30 aprile 2027". Se vuoto, nessuna data nel form.
 
+/* ---------- Intro: la busta della partecipazione ---------- */
+/* Al tocco (o Invio) il sigillo si spezza, le ante si aprono, sale il biglietto e la busta svanisce sul sito.
+   Esc la salta. Con prefers-reduced-motion la busta svanisce e basta. */
+const intro = document.getElementById("intro");
+if (intro && document.documentElement.classList.contains("has-intro")) {
+  const root = document.documentElement;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const behind = [".skip", "#nav", "#main", ".footer"].map((s) => document.querySelector(s)).filter(Boolean);
+  behind.forEach((el) => { el.inert = true; });
+  let started = false;
+
+  const leave = () => {
+    intro.classList.add("is-leaving");
+    root.classList.remove("has-intro");   // sblocca lo scroll e fa partire l'animazione dell'hero
+    behind.forEach((el) => { el.inert = false; });
+    try { sessionStorage.setItem("intro-vista", "1"); } catch {}
+    window.setTimeout(() => intro.remove(), reduce ? 400 : 1200);
+  };
+  const open = () => {
+    if (started) return;
+    started = true;
+    if (reduce) { leave(); return; }
+    intro.classList.add("is-opening");
+    window.setTimeout(leave, 2600);
+  };
+
+  intro.addEventListener("click", open);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !started) { started = true; leave(); }
+  });
+  document.getElementById("introOpen").focus({ preventScroll: true });
+}
+
 /* ---------- Menu mobile ---------- */
 const nav = document.getElementById("nav");
 const toggle = document.getElementById("navToggle");
