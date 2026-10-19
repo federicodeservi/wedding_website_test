@@ -8,8 +8,11 @@
 // Se lasciata vuota, si usa Session.getEffectiveUser().getEmail() (l'account che ha distribuito lo script).
 const NOTIFY_EMAIL = "";
 
+// Scheda del Google Sheet su cui vengono scritte le conferme (creata da sola se non esiste).
+var SHEET_NAME = 'Conferme';
+
 // Nome delle colonne, nell'ordine in cui vengono scritte sul foglio.
-var HEADERS = ['Timestamp', 'Nome', 'Persone', 'Accompagnatori', 'Bambini', 'Età bambini', 'Intolleranze', 'Messaggio'];
+var HEADERS = ['Timestamp', 'Nome', 'Presenza', 'Adulti', 'Bambini', 'Accompagnatori', 'Bambini: nomi ed età', 'Intolleranze', 'Messaggio'];
 
 /**
  * Ping di controllo: utile per verificare che la distribuzione funzioni.
@@ -38,30 +41,43 @@ function doPost(e) {
       return jsonResponse({ ok: false, error: 'Il nome e\' obbligatorio.' });
     }
 
-    var persone = parseInt(data.persone, 10);
-    if (isNaN(persone) || persone < 1) {
-      persone = 1;
+    var presenza = String(data.presenza || '').trim();
+    if (presenza !== 'si' && presenza !== 'no') {
+      return jsonResponse({ ok: false, error: 'Indicare se si partecipa.' });
+    }
+    var viene = presenza === 'si';
+
+    // Chi non viene non manda i dettagli: adulti e bambini restano a zero.
+    var adulti = viene ? parseInt(data.adulti, 10) : 0;
+    if (viene && (isNaN(adulti) || adulti < 1)) {
+      adulti = 1;
+    }
+    var bambini = viene ? parseInt(data.bambini, 10) : 0;
+    if (isNaN(bambini) || bambini < 0) {
+      bambini = 0;
     }
 
     var accompagnatori = String(data.accompagnatori || '').trim();
-    var bambini = String(data.bambini || '').trim();
     var etaBambini = String(data.eta_bambini || '').trim();
     var intolleranze = String(data.intolleranze || '').trim();
     var messaggio = String(data.messaggio || '').trim();
 
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
 
     // Se il foglio e' vuoto, scrive prima l'intestazione.
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(HEADERS);
+      sheet.setFrozenRows(1);
     }
 
     sheet.appendRow([
       new Date(),
       nome,
-      persone,
-      accompagnatori,
+      viene ? 'Sì' : 'No',
+      adulti,
       bambini,
+      accompagnatori,
       etaBambini,
       intolleranze,
       messaggio
@@ -71,9 +87,10 @@ function doPost(e) {
     try {
       inviaNotificaEmail({
         nome: nome,
-        persone: persone,
-        accompagnatori: accompagnatori,
+        viene: viene,
+        adulti: adulti,
         bambini: bambini,
+        accompagnatori: accompagnatori,
         etaBambini: etaBambini,
         intolleranze: intolleranze,
         messaggio: messaggio
@@ -99,19 +116,24 @@ function inviaNotificaEmail(dati) {
 
   var corpo = [
     'Nome: ' + dati.nome,
-    'Persone: ' + dati.persone,
-    'Accompagnatori: ' + dati.accompagnatori,
+    'Presenza: ' + (dati.viene ? 'Sì' : 'No'),
+    'Adulti: ' + dati.adulti,
     'Bambini: ' + dati.bambini,
-    'Eta\' bambini: ' + dati.etaBambini,
+    'Accompagnatori: ' + dati.accompagnatori,
+    'Bambini, nomi ed eta\': ' + dati.etaBambini,
     'Intolleranze: ' + dati.intolleranze,
     'Messaggio: ' + dati.messaggio,
     '',
     'Foglio Google: ' + url
   ].join('\n');
 
+  var oggetto = dati.viene
+    ? 'Ci sara\': ' + dati.nome + ' (' + dati.adulti + ' adulti, ' + dati.bambini + ' bambini)'
+    : 'Non ci sara\': ' + dati.nome;
+
   MailApp.sendEmail({
     to: destinatario,
-    subject: 'Nuova conferma: ' + dati.nome + ' (' + dati.persone + ' persone)',
+    subject: oggetto,
     body: corpo
   });
 }

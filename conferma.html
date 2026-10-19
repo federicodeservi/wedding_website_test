@@ -9,7 +9,13 @@
   <meta property="og:title" content="Conferma la presenza, Monica & Federico">
   <meta property="og:description" content="Fateci sapere se ci sarete il 28 maggio 2027.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/anteprima.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Disegno di Monica e Federico abbracciati, tra i fiori">
   <meta name="theme-color" content="#274D3D">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
@@ -56,32 +62,44 @@
           <p class="field__error" data-error-for="nome">Inserisci il tuo nome.</p>
         </div>
 
-        <div class="field field--half">
-          <label for="persone">Numero di persone</label>
-          <input id="persone" name="persone" type="number" min="1" max="10" value="1" required>
-        </div>
+        <fieldset class="field" id="presenzaField">
+          <legend>Ci sarete?</legend>
+          <label class="radio"><input type="radio" name="presenza" value="si" required> Sì, ci saremo</label>
+          <label class="radio"><input type="radio" name="presenza" value="no"> No, purtroppo non potremo esserci</label>
+          <p class="field__error" data-error-for="presenza">Fateci sapere se ci sarete.</p>
+        </fieldset>
 
-        <div class="field">
-          <label for="accompagnatori">Nomi degli accompagnatori</label>
-          <input id="accompagnatori" name="accompagnatori" type="text">
-          <p class="field__hint">Facoltativo. Gli adulti che vengono con voi.</p>
-        </div>
+        <fieldset class="form__group" id="presenteFields" hidden disabled>
+          <div class="form__row">
+            <div class="field field--half">
+              <label for="adulti">Adulti</label>
+              <input id="adulti" name="adulti" type="number" min="1" max="10" value="1" required>
+              <p class="field__hint">Voi compresi.</p>
+            </div>
+            <div class="field field--half">
+              <label for="bambini">Bambini</label>
+              <input id="bambini" name="bambini" type="number" min="0" max="10" value="0">
+            </div>
+          </div>
 
-        <div class="field field--half">
-          <label for="bambini">Bambini</label>
-          <input id="bambini" name="bambini" type="number" min="0" max="10" value="0">
-        </div>
+          <div class="field">
+            <label for="accompagnatori">Nomi degli adulti che vengono con voi</label>
+            <input id="accompagnatori" name="accompagnatori" type="text">
+            <p class="field__hint">Facoltativo.</p>
+          </div>
 
-        <div class="field" id="etaBambiniField" hidden>
-          <label for="eta_bambini">Età dei bambini</label>
-          <input id="eta_bambini" name="eta_bambini" type="text" placeholder="">
-          <p class="field__hint">Es. 3 e 7 anni. Ci serve per il menù e i seggioloni.</p>
-        </div>
+          <div class="field" id="etaBambiniField" hidden>
+            <label for="eta_bambini">Nomi ed età dei bambini</label>
+            <input id="eta_bambini" name="eta_bambini" type="text">
+            <p class="field__hint">Es. Giulia 3 anni, Marco 7 anni. Ci serve per il menù e i seggioloni.</p>
+          </div>
 
-        <div class="field">
-          <label for="intolleranze">Intolleranze o allergie</label>
-          <input id="intolleranze" name="intolleranze" type="text">
-        </div>
+          <div class="field">
+            <label for="intolleranze">Intolleranze o allergie</label>
+            <input id="intolleranze" name="intolleranze" type="text">
+            <p class="field__hint">Facoltativo. Indicate anche di chi sono.</p>
+          </div>
+        </fieldset>
 
         <div class="field">
           <label for="messaggio">Un messaggio per noi</label>

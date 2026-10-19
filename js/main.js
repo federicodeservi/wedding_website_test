@@ -1,7 +1,7 @@
 /* Monica & Federico: interazioni leggere, nessuna dipendenza. */
 
 /* ---------- Configurazione ---------- */
-const WEDDING_DATE = new Date("2027-05-28T15:30:00+02:00");
+const WEDDING_DATE = new Date("2027-05-28T11:00:00+02:00");
 const RSVP_ENABLED = true;               // interruttore generale
 const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOvQfZpT7rVe7kNnAsOIW-kkHmzF2tc8hV1a3neB90lyq1hm7X_tJUjuC7za31M_je/exec";                // URL della web app Apps Script (vedi README). Finche' e' vuoto il sito mostra "in arrivo".
 const RSVP_DEADLINE = "";                // es. "30 aprile 2027". Se vuoto, nessuna data nel form.
@@ -210,19 +210,34 @@ if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
     form.querySelector("[data-rsvp-deadline-wrap]").hidden = false;
   }
 
-  /* Il campo eta' compare solo se ci sono bambini */
+  /* I dettagli (adulti, bambini, intolleranze) compaiono solo per chi viene. Il fieldset disabilitato non viene inviato. */
+  const presenteFields = document.getElementById("presenteFields");
+  const presenzaField = document.getElementById("presenzaField");
+  const syncPresenza = () => {
+    const viene = form.presenza.value === "si";
+    presenteFields.hidden = !viene;
+    presenteFields.disabled = !viene;
+    if (form.presenza.value) presenzaField.classList.remove("is-invalid");
+  };
+  presenzaField.addEventListener("change", syncPresenza);
+
+  /* Il campo dei bambini (nomi ed eta') compare solo se ci sono bambini */
   const bambini = form.querySelector("#bambini");
   const etaField = document.getElementById("etaBambiniField");
   const syncBambini = () => { etaField.hidden = !(Number(bambini.value) > 0); };
   bambini.addEventListener("input", syncBambini);
+  syncPresenza();
   syncBambini();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const nomeField = form.querySelector("#nome").closest(".field");
     const nome = form.nome.value.trim();
+    const presenza = form.presenza.value;
     nomeField.classList.toggle("is-invalid", !nome);
+    presenzaField.classList.toggle("is-invalid", !presenza);
     if (!nome) { form.nome.focus(); return; }
+    if (!presenza) { form.presenza[0].focus(); return; }
 
     submitBtn.disabled = true;
     status.textContent = "Invio in corso...";
@@ -234,11 +249,14 @@ if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || "Errore");
       form.reset();
+      syncPresenza();
       syncBambini();
-      status.textContent = "Grazie! Abbiamo ricevuto la vostra conferma.";
+      status.textContent = presenza === "si"
+        ? "Grazie! Abbiamo ricevuto la vostra conferma. Non vediamo l'ora di festeggiare con voi."
+        : "Grazie per avercelo fatto sapere. Ci mancherete!";
       status.className = "form__status is-ok";
     } catch {
-      status.textContent = "Qualcosa e' andato storto. Riprovate o scriveteci direttamente.";
+      status.textContent = "Qualcosa è andato storto. Riprovate o scriveteci direttamente.";
       status.className = "form__status is-err";
     } finally {
       submitBtn.disabled = false;

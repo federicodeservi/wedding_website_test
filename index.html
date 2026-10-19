@@ -9,7 +9,13 @@
   <meta property="og:title" content="Monica & Federico, 28 maggio 2027">
   <meta property="og:description" content="Ci sposiamo. Tutte le informazioni per la giornata.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/anteprima.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Disegno di Monica e Federico abbracciati, tra i fiori">
   <meta name="theme-color" content="#274D3D">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
@@ -155,35 +161,20 @@
     <img class="deco-ramo deco-ramo--left" src="assets/img/disegni/ramo-lilla.webp" alt="" width="165" height="615" loading="lazy">
     <div class="wrap wrap--narrow">
       <h2 class="h2 reveal">Il programma della giornata</h2>
-      <p class="lead reveal">Una giornata tra i libri e il verde della cascina. Orari indicativi, li aggiorneremo appena tutto sarà confermato.</p>
+      <p class="lead reveal">Una giornata tra i libri e il verde della cascina. Gli orari dopo la cerimonia li aggiorneremo appena tutto sarà confermato.</p>
       <ol class="timeline">
-        <!-- TODO: scaletta reale -->
         <li class="timeline__item reveal">
-          <time class="timeline__time" datetime="2027-05-28T15:30">15:30</time>
+          <time class="timeline__time" datetime="2027-05-28T11:00">11:00</time>
           <div>
             <h3 class="timeline__title">Cerimonia</h3>
             <p>Chiesa da definire. Vi chiediamo di arrivare con qualche minuto di anticipo.</p>
           </div>
         </li>
         <li class="timeline__item reveal">
-          <time class="timeline__time" datetime="2027-05-28T17:00">17:00</time>
+          <span class="timeline__time timeline__time--soft">A seguire</span>
           <div>
-            <h3 class="timeline__title">Aperitivo in giardino</h3>
-            <p>Cascina Il Casale, Inverigo. Brindisi all'aperto tra il verde.</p>
-          </div>
-        </li>
-        <li class="timeline__item reveal">
-          <time class="timeline__time" datetime="2027-05-28T19:30">19:30</time>
-          <div>
-            <h3 class="timeline__title">Cena</h3>
-            <p>Segnaposto. Dettagli sul menù e sui tavoli in arrivo.</p>
-          </div>
-        </li>
-        <li class="timeline__item reveal">
-          <time class="timeline__time" datetime="2027-05-28T22:30">22:30</time>
-          <div>
-            <h3 class="timeline__title">Torta e festa</h3>
-            <p>Segnaposto. Si balla fino a tardi.</p>
+            <h3 class="timeline__title">Ricevimento in cascina</h3>
+            <p>Finita la messa ci spostiamo tutti a Cascina Il Casale, a Inverigo. Aperitivo in giardino, pranzo e festa tra il verde.</p>
           </div>
         </li>
       </ol>
@@ -199,7 +190,7 @@
         <article class="place reveal">
           <h3 class="place__title">La cerimonia</h3>
           <p class="place__name">Chiesa da definire</p>
-          <p>Comunicheremo presto il luogo esatto della cerimonia. Sarà in zona, a breve distanza dal ricevimento.</p>
+          <p>La messa è alle 11:00. Comunicheremo presto il luogo esatto: sarà in zona, a breve distanza dal ricevimento.</p>
           <div class="place__flowers" aria-hidden="true">
             <img src="assets/img/disegni/margherita.webp" alt="" width="95" height="205" loading="lazy">
             <img src="assets/img/disegni/margherita.webp" alt="" width="95" height="205" loading="lazy">
@@ -209,8 +200,8 @@
           <h3 class="place__title">Il ricevimento</h3>
           <p class="place__name">Cascina Il Casale</p>
           <p class="place__where">Inverigo (CO)</p>
-          <p>Aperitivo, cena e festa si tengono qui. Parcheggio disponibile in loco. <!-- TODO: indirizzo preciso, note su navette --></p>
-          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Cascina+Il+Casale+Inverigo" target="_blank" rel="noopener">Apri in Google Maps</a>
+          <p>Ci si arriva subito dopo la messa: aperitivo, pranzo e festa si tengono qui. Parcheggio disponibile in loco.</p>
+          <a class="link" href="https://maps.app.goo.gl/1fSKrTHXRnTa7mJK8" target="_blank" rel="noopener">Apri nel navigatore</a>
           <div class="map">
             <iframe title="Mappa di Cascina Il Casale, Inverigo" src="https://www.google.com/maps?q=Cascina+Il+Casale,+Inverigo&z=13&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
           </div>
@@ -247,11 +238,8 @@
       <div class="gifts reveal">
         <img class="gifts__heart" src="assets/img/disegni/cuore.webp" alt="" width="77" height="102" loading="lazy">
         <p class="eyebrow">Un pensiero per noi</p>
-        <h2 class="h2">La lista nozze</h2>
-        <p class="lead">
-          <!-- TODO: testo regali (viaggio di nozze, lista, ecc.) -->
-          La vostra presenza è il regalo più grande. Se volete contribuire al nostro viaggio di nozze, qui sotto trovate come fare.
-        </p>
+        <h2 class="h2">Regali</h2>
+        <p class="lead">La vostra presenza è il regalo più grande. Non abbiamo una lista nozze: se volete farci un pensiero, potete usare l'IBAN qui sotto.</p>
         <div class="iban">
           <span class="iban__label">IBAN intestato a Monica e Federico</span>
           <!-- TODO: IBAN reale -->

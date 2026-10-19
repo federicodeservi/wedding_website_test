@@ -323,6 +323,7 @@ button { font: inherit; }
 }
 .timeline__item:last-child { padding-bottom: 0; }
 .timeline__time { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: var(--accent); line-height: 1.1; }
+.timeline__time--soft { font-size: 1.3rem; font-style: italic; padding-top: .3rem; }
 .timeline__title { font-size: 1.7rem; margin-bottom: .3rem; }
 .timeline__item p { color: var(--ink-2); margin: 0; }
 /* La linea del programma finisce in un mazzetto di fiori, centrato sulla linea */
@@ -439,6 +440,10 @@ button { font: inherit; }
 }
 .field input:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
 .field textarea { resize: vertical; }
+.field legend { padding: 0; margin-bottom: .5rem; }
+.form__group { display: grid; gap: 1.5rem; border: 0; padding: 0; margin: 0; min-width: 0; }
+.form__row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.5rem; }
+.form__row .field--half { flex: 1 1 9rem; }
 .field__hint { font-size: 1rem; color: var(--muted); margin: 0; }
 .field__error { font-size: 1rem; color: #8a2b2b; margin: 0; display: none; }
 .field.is-invalid input { border-color: #8a2b2b; }
