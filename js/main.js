@@ -1,27 +1,71 @@
 /* Monica & Federico: interazioni leggere, nessuna dipendenza. */
 
 /* ---------- Configurazione ---------- */
-const WEDDING_DATE = new Date("2027-05-28T15:30:00+02:00");
+const WEDDING_DATE = new Date("2027-05-28T11:00:00+02:00");
 const RSVP_ENABLED = true;               // interruttore generale
 const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOvQfZpT7rVe7kNnAsOIW-kkHmzF2tc8hV1a3neB90lyq1hm7X_tJUjuC7za31M_je/exec";                // URL della web app Apps Script (vedi README). Finche' e' vuoto il sito mostra "in arrivo".
 const RSVP_DEADLINE = "";                // es. "30 aprile 2027". Se vuoto, nessuna data nel form.
+
+/* ---------- Intro: la busta della partecipazione ---------- */
+/* Al tocco (o Invio) il sigillo si spezza, le ante si aprono, sale il biglietto e la busta svanisce sul sito.
+   Esc la salta. Con prefers-reduced-motion la busta svanisce e basta. */
+const intro = document.getElementById("intro");
+if (intro && document.documentElement.classList.contains("has-intro")) {
+  const root = document.documentElement;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const behind = [".skip", "#nav", "#main", ".footer"].map((s) => document.querySelector(s)).filter(Boolean);
+  behind.forEach((el) => { el.inert = true; });
+  let started = false;
+
+  const leave = () => {
+    intro.classList.add("is-leaving");
+    root.classList.remove("has-intro");   // sblocca lo scroll e fa partire l'animazione dell'hero
+    behind.forEach((el) => { el.inert = false; });
+    try { sessionStorage.setItem("intro-vista", "1"); } catch {}
+    window.setTimeout(() => intro.remove(), reduce ? 400 : 1200);
+  };
+  const open = () => {
+    if (started) return;
+    started = true;
+    if (reduce) { leave(); return; }
+    intro.classList.add("is-opening");
+    window.setTimeout(leave, 2600);
+  };
+
+  intro.addEventListener("click", open);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !started) { started = true; leave(); }
+  });
+  document.getElementById("introOpen").focus({ preventScroll: true });
+}
 
 /* ---------- Menu mobile ---------- */
 const nav = document.getElementById("nav");
 const toggle = document.getElementById("navToggle");
 const menu = document.getElementById("navMenu");
 
+function setMenu(open) {
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.setAttribute("aria-label", open ? "Chiudi il menu" : "Apri il menu");
+  menu.classList.toggle("is-open", open);
+  document.body.classList.toggle("nav-open", open);   // blocca lo scroll dietro il menu a tutto schermo
+}
+
 toggle.addEventListener("click", () => {
-  const open = toggle.getAttribute("aria-expanded") === "true";
-  toggle.setAttribute("aria-expanded", String(!open));
-  toggle.setAttribute("aria-label", open ? "Apri il menu" : "Chiudi il menu");
-  menu.classList.toggle("is-open", !open);
+  setMenu(toggle.getAttribute("aria-expanded") !== "true");
 });
 menu.addEventListener("click", (e) => {
-  if (e.target.tagName === "A") {
-    toggle.setAttribute("aria-expanded", "false");
-    menu.classList.remove("is-open");
+  if (e.target.tagName === "A") setMenu(false);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+    setMenu(false);
+    toggle.focus();
   }
+});
+/* Tornando sopra i 860px il menu resta visibile in linea: si chiude lo stato a tutto schermo. */
+window.matchMedia("(min-width: 861px)").addEventListener("change", (e) => {
+  if (e.matches) setMenu(false);
 });
 
 /* Bordo della barra quando si scorre (sentinella + IntersectionObserver, niente listener di scroll) */
@@ -166,19 +210,34 @@ if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
     form.querySelector("[data-rsvp-deadline-wrap]").hidden = false;
   }
 
-  /* Il campo eta' compare solo se ci sono bambini */
+  /* I dettagli (adulti, bambini, intolleranze) compaiono solo per chi viene. Il fieldset disabilitato non viene inviato. */
+  const presenteFields = document.getElementById("presenteFields");
+  const presenzaField = document.getElementById("presenzaField");
+  const syncPresenza = () => {
+    const viene = form.presenza.value === "si";
+    presenteFields.hidden = !viene;
+    presenteFields.disabled = !viene;
+    if (form.presenza.value) presenzaField.classList.remove("is-invalid");
+  };
+  presenzaField.addEventListener("change", syncPresenza);
+
+  /* Il campo dei bambini (nomi ed eta') compare solo se ci sono bambini */
   const bambini = form.querySelector("#bambini");
   const etaField = document.getElementById("etaBambiniField");
   const syncBambini = () => { etaField.hidden = !(Number(bambini.value) > 0); };
   bambini.addEventListener("input", syncBambini);
+  syncPresenza();
   syncBambini();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const nomeField = form.querySelector("#nome").closest(".field");
     const nome = form.nome.value.trim();
+    const presenza = form.presenza.value;
     nomeField.classList.toggle("is-invalid", !nome);
+    presenzaField.classList.toggle("is-invalid", !presenza);
     if (!nome) { form.nome.focus(); return; }
+    if (!presenza) { form.presenza[0].focus(); return; }
 
     submitBtn.disabled = true;
     status.textContent = "Invio in corso...";
@@ -190,11 +249,14 @@ if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || "Errore");
       form.reset();
+      syncPresenza();
       syncBambini();
-      status.textContent = "Grazie! Abbiamo ricevuto la vostra conferma.";
+      status.textContent = presenza === "si"
+        ? "Grazie! Abbiamo ricevuto la vostra conferma. Non vediamo l'ora di festeggiare con voi."
+        : "Grazie per avercelo fatto sapere. Ci mancherete!";
       status.className = "form__status is-ok";
     } catch {
-      status.textContent = "Qualcosa e' andato storto. Riprovate o scriveteci direttamente.";
+      status.textContent = "Qualcosa è andato storto. Riprovate o scriveteci direttamente.";
       status.className = "form__status is-err";
     } finally {
       submitBtn.disabled = false;
