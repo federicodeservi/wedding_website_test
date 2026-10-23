@@ -4,9 +4,10 @@
 const WEDDING_DATE = new Date("2027-05-28T11:00:00+02:00");
 const RSVP_ENABLED = true;               // interruttore generale
 const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOvQfZpT7rVe7kNnAsOIW-kkHmzF2tc8hV1a3neB90lyq1hm7X_tJUjuC7za31M_je/exec";                // URL della web app Apps Script (vedi README). Finche' e' vuoto il sito mostra "in arrivo".
-// Solo testo: sostituisce "febbraio 2027" nell'invito a rispondere (es. "il 15 febbraio 2027"). Nessuna chiusura automatica del modulo.
-// NOTA: il giorno preciso non e' ancora deciso. Definirlo con gli sposi prima di valorizzarla.
+// Solo testo: sostituisce "febbraio 2027" nell'invito a rispondere. Vuota per scelta: agli invitati si dice "entro febbraio 2027".
 const RSVP_DEADLINE = "";
+// Chiusura automatica: si risponde fino a tutto il 1 marzo 2027 (ora italiana), poi il modulo lascia il posto al messaggio di chiusura.
+const RSVP_CLOSES_AT = new Date("2027-03-02T00:00:00+01:00");
 // Dati reali del conto: finche' uno dei due e' vuoto il riquadro IBAN e il pulsante Copia IBAN restano nascosti.
 const IBAN = "";                          // es. "IT.. .... ...."
 const IBAN_INTESTATARIO = "";             // nome dell'intestatario del conto, come risulta in banca
@@ -211,6 +212,13 @@ const form = document.getElementById("rsvpForm");
 const paused = document.getElementById("rsvpPaused");
 const status = document.getElementById("rsvpStatus");
 const submitBtn = document.getElementById("rsvpSubmit");
+const closedBox = document.getElementById("rsvpClosed");
+const rsvpClosed = () => new Date() >= RSVP_CLOSES_AT;
+function closeRsvp() {
+  form.hidden = true;
+  paused.hidden = true;
+  closedBox.hidden = false;
+}
 
 /* Esito dell'invio: la prima riga in grassetto, le altre a capo sotto */
 function setStatus(kind, title, ...lines) {
@@ -220,7 +228,9 @@ function setStatus(kind, title, ...lines) {
   status.className = "form__status " + kind;
 }
 
-if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
+if (form && RSVP_ENABLED && RSVP_ENDPOINT && rsvpClosed()) {
+  closeRsvp();
+} else if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
   paused.hidden = true;
   form.hidden = false;
 
@@ -250,6 +260,7 @@ if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (rsvpClosed()) { closeRsvp(); return; }   // pagina aperta da prima della scadenza
     const nomeField = form.querySelector("#nome").closest(".field");
     const nome = form.nome.value.trim();
     const presenza = form.presenza.value;

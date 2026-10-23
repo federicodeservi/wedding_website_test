@@ -45,7 +45,8 @@ Le risposte finiscono nella scheda "Conferme" del Google Sheet (creata da sola a
 
 Impostazioni:
 
-- `RSVP_DEADLINE` in `js/main.js`: solo testo, sostituisce "febbraio 2027" nella frase "fateci sapere se ci sarete entro ...". Il giorno preciso non e' ancora deciso: va definito prima di valorizzarla. Non chiude il modulo in automatico.
+- `RSVP_DEADLINE` in `js/main.js`: solo testo, sostituisce "febbraio 2027" nella frase "fateci sapere se ci sarete entro ...". Vuota per scelta.
+- `RSVP_CLOSES_AT` in `js/main.js`: chiusura automatica del modulo. Si risponde fino a tutto il 1 marzo 2027 (ora italiana), poi la pagina mostra il messaggio di chiusura. La chiusura e' solo nel sito: lo script Apps Script continua ad accettare invii diretti.
 - `IBAN` e `IBAN_INTESTATARIO` in `js/main.js`: finche' uno dei due e' vuoto il riquadro IBAN e il pulsante Copia IBAN restano nascosti.
 - `NOTIFY_EMAIL` in `rsvp/apps-script.gs`: l'indirizzo che riceve le notifiche. Se vuota, le email arrivano all'account Google con cui e' stato distribuito lo script.
 
@@ -107,7 +108,6 @@ Sono ritagliati dai fogli originali di Procreate. Il bianco attorno ai disegni e
 ## Cose ancora da definire (TBD)
 
 - Orari di aperitivo, pranzo, torta e festa (per ora solo la cerimonia ha l'orario: 11:00)
-- Giorno preciso di scadenza dell'RSVP (agli invitati si dice "entro febbraio 2027", `RSVP_DEADLINE`)
 - IBAN reale e intestatario (`IBAN`, `IBAN_INTESTATARIO`; niente lista nozze)
 
-Contatti: per scelta il sito non ne mostra (niente email, telefono o WhatsApp).
+Contatti: per scelta il sito non mostra numeri, email o link. L'unico rimando e' il messaggio che compare a modulo chiuso, che invita a scrivere su WhatsApp o a chiamare.
