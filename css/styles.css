@@ -105,6 +105,50 @@ button { font: inherit; }
 .btn--ghost:hover { background: var(--accent); color: var(--on-accent); }
 .btn--small { padding: .55rem 1rem; font-size: .9rem; }
 
+/* "Come arrivare": pulsante pieno con lo spillo della mappa (punto corallo come i cuori) e una freccia.
+   Quando la scheda del luogo compare passa un riflesso e lo spillo fa un saltello; al passaggio del mouse si ripete. */
+.btn--route {
+  gap: .65rem; margin-top: .75rem;
+  position: relative; overflow: hidden; isolation: isolate;
+}
+.btn--route svg {
+  flex: none; width: 1.25em; height: 1.25em;
+  fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.btn--route .btn__pin circle { fill: var(--heart); stroke: none; }
+.btn--route::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(251, 250, 245, .3) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn--route { transition: background .3s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease); }
+  .btn--route .btn__arrow { transition: transform .35s var(--ease); }
+  .btn--route .btn__pin { transform-origin: 50% 100%; }
+  .place.is-visible .btn--route::before { animation: route-shine 1.3s var(--ease) .7s; }
+  .place.is-visible .btn--route .btn__pin { animation: route-hop .8s var(--ease) .9s; }
+  .place .btn--route:hover, .place .btn--route:focus-visible {
+    transform: translateY(-2px); box-shadow: 0 12px 24px -12px rgba(39, 77, 61, .6);
+  }
+  .place .btn--route:hover::before, .place .btn--route:focus-visible::before { animation: route-shine-again .9s var(--ease); }
+  .place .btn--route:hover .btn__pin, .place .btn--route:focus-visible .btn__pin { animation: route-hop-again .7s var(--ease); }
+  .btn--route:hover .btn__arrow, .btn--route:focus-visible .btn__arrow { transform: translateX(4px); }
+}
+@keyframes route-shine { to { transform: translateX(120%); } }
+@keyframes route-shine-again { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+@keyframes route-hop {
+  0%, 100% { transform: none; }
+  35% { transform: translateY(-5px) scaleY(1.05); }
+  60% { transform: translateY(0) scale(1.08, .92); }
+  80% { transform: translateY(-1.5px); }
+}
+@keyframes route-hop-again {
+  0%, 100% { transform: none; }
+  35% { transform: translateY(-5px) scaleY(1.05); }
+  60% { transform: translateY(0) scale(1.08, .92); }
+  80% { transform: translateY(-1.5px); }
+}
+
 /* Navigazione */
 .nav-sentinel { position: absolute; top: 0; height: 1px; width: 1px; }
 .nav {

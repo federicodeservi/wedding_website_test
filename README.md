@@ -109,6 +109,5 @@ Sono ritagliati dai fogli originali di Procreate. Il bianco attorno ai disegni e
 - Orari di aperitivo, pranzo, torta e festa (per ora solo la cerimonia ha l'orario: 11:00)
 - Giorno preciso di scadenza dell'RSVP (agli invitati si dice "entro febbraio 2027", `RSVP_DEADLINE`)
 - IBAN reale e intestatario (`IBAN`, `IBAN_INTESTATARIO`; niente lista nozze)
-- Verifica a vista dei due link "Come arrivare" su Google Maps prima della pubblicazione
 
 Contatti: per scelta il sito non ne mostra (niente email, telefono o WhatsApp).
