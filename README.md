@@ -45,7 +45,8 @@ Le risposte finiscono nella scheda "Conferme" del Google Sheet (creata da sola a
 
 Impostazioni:
 
-- `RSVP_DEADLINE` in `js/main.js`: la data limite per rispondere, es. "30 aprile 2027". Se vuota, il modulo non mostra nessuna data.
+- `RSVP_DEADLINE` in `js/main.js`: solo testo, sostituisce "febbraio 2027" nella frase "fateci sapere se ci sarete entro ...". Il giorno preciso non e' ancora deciso: va definito prima di valorizzarla. Non chiude il modulo in automatico.
+- `IBAN` e `IBAN_INTESTATARIO` in `js/main.js`: finche' uno dei due e' vuoto il riquadro IBAN e il pulsante Copia IBAN restano nascosti.
 - `NOTIFY_EMAIL` in `rsvp/apps-script.gs`: l'indirizzo che riceve le notifiche. Se vuota, le email arrivano all'account Google con cui e' stato distribuito lo script.
 
 ### Aggiornare lo script (mantenendo lo stesso URL)
@@ -90,9 +91,9 @@ Aprendo la home compare la busta della partecipazione: nomi in corsivo, arco con
 I disegni sono quelli della partecipazione e stanno in `assets/img/disegni/`, in WebP con lo sfondo trasparente:
 
 - `coppia.webp`, con i due cuori, in cima all'hero; `fiori-prato.webp` e `fiori-mazzo.webp` ai suoi piedi
-- `libri.webp` accanto alla citazione della storia
+- `libri.webp` accanto al titolo della storia
 - `ramo-lilla.webp` sul bordo dello schermo all'inizio di programma e regali. Da 980px in su scende accanto alla colonna stretta, sotto sta a cavallo tra due sezioni, nello spazio vuoto, cosi' non copre mai il testo
-- `cuore.webp` anche ai lati del conto alla rovescia, sopra la lista nozze, accanto a "Ci sarete?" e al titolo della pagina di conferma, ai lati dei nomi nel footer
+- `cuore.webp` anche ai lati del conto alla rovescia, sopra i regali, accanto a "Ci sarete?" e al titolo della pagina di conferma, ai lati dei nomi nel footer
 - `fiori-mazzo.webp` in fondo alla linea del programma, due `margherita.webp` sotto la cerimonia in "I luoghi"
 - `fiori-prato.webp`, `cuore.webp` e `libri-occhiali.webp` in fondo al footer, in tutte e due le pagine
 
@@ -105,9 +106,9 @@ Sono ritagliati dai fogli originali di Procreate. Il bianco attorno ai disegni e
 
 ## Cose ancora da definire (TBD)
 
-- Chiesa: luogo esatto (l'orario e' fissato: messa alle 11:00, poi tutti in cascina)
-- Orari del ricevimento (aperitivo, pranzo, torta)
-- Data limite per rispondere all'RSVP (`RSVP_DEADLINE`)
-- IBAN reale e intestatari (niente lista nozze, solo IBAN)
-- Testo della storia della coppia (frase iniziale e tre tappe)
-- Contatti da mostrare agli invitati (ora c'e' `info@example.com` nel footer)
+- Orari di aperitivo, pranzo, torta e festa (per ora solo la cerimonia ha l'orario: 11:00)
+- Giorno preciso di scadenza dell'RSVP (agli invitati si dice "entro febbraio 2027", `RSVP_DEADLINE`)
+- IBAN reale e intestatario (`IBAN`, `IBAN_INTESTATARIO`; niente lista nozze)
+- Verifica a vista dei due link "Come arrivare" su Google Maps prima della pubblicazione
+
+Contatti: per scelta il sito non ne mostra (niente email, telefono o WhatsApp).

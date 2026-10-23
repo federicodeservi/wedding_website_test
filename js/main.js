@@ -4,7 +4,12 @@
 const WEDDING_DATE = new Date("2027-05-28T11:00:00+02:00");
 const RSVP_ENABLED = true;               // interruttore generale
 const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOvQfZpT7rVe7kNnAsOIW-kkHmzF2tc8hV1a3neB90lyq1hm7X_tJUjuC7za31M_je/exec";                // URL della web app Apps Script (vedi README). Finche' e' vuoto il sito mostra "in arrivo".
-const RSVP_DEADLINE = "";                // es. "30 aprile 2027". Se vuoto, nessuna data nel form.
+// Solo testo: sostituisce "febbraio 2027" nell'invito a rispondere (es. "il 15 febbraio 2027"). Nessuna chiusura automatica del modulo.
+// NOTA: il giorno preciso non e' ancora deciso. Definirlo con gli sposi prima di valorizzarla.
+const RSVP_DEADLINE = "";
+// Dati reali del conto: finche' uno dei due e' vuoto il riquadro IBAN e il pulsante Copia IBAN restano nascosti.
+const IBAN = "";                          // es. "IT.. .... ...."
+const IBAN_INTESTATARIO = "";             // nome dell'intestatario del conto, come risulta in banca
 
 /* ---------- Intro: la busta della partecipazione ---------- */
 /* Al tocco (o Invio) il sigillo si spezza, le ante si aprono, sale il biglietto e la busta svanisce sul sito.
@@ -182,9 +187,15 @@ if (carousel) {
 }
 
 /* ---------- Copia IBAN ---------- */
+const ibanBox = document.getElementById("iban");
 const copyBtn = document.getElementById("copyIban");
 const ibanEl = document.getElementById("ibanValue");
-if (copyBtn && ibanEl) copyBtn.addEventListener("click", async () => {
+if (ibanBox && IBAN && IBAN_INTESTATARIO) {
+  ibanEl.textContent = IBAN;
+  document.getElementById("ibanHolder").textContent = IBAN_INTESTATARIO;
+  ibanBox.hidden = false;
+}
+if (copyBtn && ibanEl && IBAN && IBAN_INTESTATARIO) copyBtn.addEventListener("click", async () => {
   const text = ibanEl.textContent.replace(/\s+/g, "");
   try {
     await navigator.clipboard.writeText(text);
@@ -200,6 +211,14 @@ const form = document.getElementById("rsvpForm");
 const paused = document.getElementById("rsvpPaused");
 const status = document.getElementById("rsvpStatus");
 const submitBtn = document.getElementById("rsvpSubmit");
+
+/* Esito dell'invio: la prima riga in grassetto, le altre a capo sotto */
+function setStatus(kind, title, ...lines) {
+  const strong = document.createElement("strong");
+  strong.textContent = title;
+  status.replaceChildren(strong, ...lines.flatMap((line) => [document.createElement("br"), line]));
+  status.className = "form__status " + kind;
+}
 
 if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
   paused.hidden = true;
@@ -251,13 +270,13 @@ if (form && RSVP_ENABLED && RSVP_ENDPOINT) {
       form.reset();
       syncPresenza();
       syncBambini();
-      status.textContent = presenza === "si"
-        ? "Grazie! Abbiamo ricevuto la vostra conferma. Non vediamo l'ora di festeggiare con voi."
-        : "Grazie per avercelo fatto sapere. Ci mancherete!";
-      status.className = "form__status is-ok";
+      if (presenza === "si") {
+        setStatus("is-ok", "Risposta ricevuta", "Che bello, ci sarete!", "Abbiamo ricevuto la vostra risposta e non vediamo l’ora di festeggiare insieme.");
+      } else {
+        setStatus("is-ok", "Risposta ricevuta", "Grazie per averci avvisato. Ci dispiace non avervi con noi, ci mancherete!");
+      }
     } catch {
-      status.textContent = "Qualcosa è andato storto. Riprovate o scriveteci direttamente.";
-      status.className = "form__status is-err";
+      setStatus("is-err", "Non siamo riusciti a inviare la risposta.", "Riprovate tra qualche istante. Se il problema continua, riprovate più tardi.");
     } finally {
       submitBtn.disabled = false;
     }
