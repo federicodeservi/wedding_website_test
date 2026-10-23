@@ -107,7 +107,6 @@ Sono ritagliati dai fogli originali di Procreate. Il bianco attorno ai disegni e
 
 ## Cose ancora da definire (TBD)
 
-- Orari di aperitivo, pranzo, torta e festa (per ora solo la cerimonia ha l'orario: 11:00)
-- IBAN reale e intestatario (`IBAN`, `IBAN_INTESTATARIO`; niente lista nozze)
+Niente: programma con tutti gli orari, IBAN e intestatari sono inseriti (niente lista nozze).
 
 Contatti: per scelta il sito non mostra numeri, email o link. L'unico rimando e' il messaggio che compare a modulo chiuso, che invita a scrivere su WhatsApp o a chiamare.

@@ -452,6 +452,7 @@ button { font: inherit; }
 .iban__value {
   font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 500;
   letter-spacing: .06em; overflow-wrap: anywhere;
+  font-variant-numeric: lining-nums;   /* cifre tutte alla stessa altezza: l'IBAN si ricopia meglio */
 }
 .iban .btn { margin-top: .25rem; }
 

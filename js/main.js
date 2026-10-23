@@ -8,9 +8,9 @@ const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOvQfZpT7rVe7kNn
 const RSVP_DEADLINE = "";
 // Chiusura automatica: si risponde fino a tutto il 1 marzo 2027 (ora italiana), poi il modulo lascia il posto al messaggio di chiusura.
 const RSVP_CLOSES_AT = new Date("2027-03-02T00:00:00+01:00");
-// Dati reali del conto: finche' uno dei due e' vuoto il riquadro IBAN e il pulsante Copia IBAN restano nascosti.
-const IBAN = "";                          // es. "IT.. .... ...."
-const IBAN_INTESTATARIO = "";             // nome dell'intestatario del conto, come risulta in banca
+// Dati del conto per i regali: se uno dei due e' vuoto il riquadro IBAN e il pulsante Copia IBAN restano nascosti.
+const IBAN = "IT14 Q034 4216 0000 0007 5999 679";   // con gli spazi per leggerlo; Copia IBAN li toglie
+const IBAN_INTESTATARIO = "Federico De Servi e Monica Ruggiero";
 
 /* ---------- Intro: la busta della partecipazione ---------- */
 /* Al tocco (o Invio) il sigillo si spezza, le ante si aprono, sale il biglietto e la busta svanisce sul sito.
